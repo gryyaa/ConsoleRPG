@@ -74,8 +74,10 @@ void main()
 	Shop shop(player, shopItems);
 	
 
-	cout << "\t\t-----CPlusPlus Console RPG!-----" << endl;
-	cout << "В данной текстовой ролевой игре вам необходимо победить врага в формате пошаговых боев. При совершении каждого действия происходит бросок кубика д20, который определяет исход результата. Удачи!" << endl;
+		cout << "\t\t" << GAME_TITLE_TEXT << endl;
+		cout << "В данной текстовой ролевой игре вам необходимо победить врага в формате пошаговых боев. При совершении каждого действия происходит бросок кубика д20, который определяет исход результата. Удачи!" << endl;
+		cout << MENU_PROMPT_SYMBOL << "Нажмите Enter, чтобы продолжить..." << endl;
+		cin.get();
 	
 	if (SaveExists())
 	{
@@ -84,8 +86,8 @@ void main()
 		if (userChoice == 1) LoadGame(player, enemy);
 		else
 		{
-			ShowProgressBar(3.2, 50, "Загрузка.", '#');
-			system("cls");
+				ShowProgressBar(3.2, 50, "Загрузка.", '#');
+				system(STANDARD_CLEAR_COMMAND);
 			player.characteristics = DistributeCharacteristics();
 
 			system("cls");
@@ -100,7 +102,7 @@ void main()
 				cout << "+ 6 кд" << endl;
 				cout << "+ 40 голды" << endl;
 				player.characteristics.armorClass += 6;
-				player.gold += 40;
+					player.gold += PERCENT_OF(100, 40);
 			}
 			else if (player.name == "ChocoChocobo")
 			{
@@ -160,7 +162,7 @@ void main()
 				cout << "+ С++" << endl;
 				cout << "- С--" << endl;
 				cout << "- проиграл все торговцу" << endl;
-				player.gold = -1024;
+					player.gold = CLAMP_TO_NON_NEGATIVE(-1024);
 				player.characteristics.charisma = 17;
 				player.characteristics.wisdom = 17;
 			}
@@ -239,9 +241,7 @@ void main()
 		//system("cls");
 		ShowLoadingDots(chrono::milliseconds(200), RollDice(4));
 
-		cout << TOP_BORDER << endl;
-		cout << enemyWave[enemyCount].name << " выступает следующим!" << endl;
-		cout << TOP_BORDER << endl;
+			PRINT_SECTION_TITLE(enemyWave[enemyCount].name + " выступает следующим!");
 		do
 		{
 			player.PrintStatus();
